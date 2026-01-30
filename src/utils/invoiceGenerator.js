@@ -12,7 +12,8 @@ export const generateInvoice = async (order) => {
         // Fetch Branding Info
         let branding = { name: 'MyStore.', logo_url: '' };
         try {
-            const brandRes = await api.get('/websites/1');
+            const websiteId = import.meta.env.VITE_WEBSITE_ID || 1;
+            const brandRes = await api.get(`/websites/${websiteId}`);
             branding = brandRes.data;
         } catch (e) {
             console.error("Failed to load branding for invoice");
@@ -22,13 +23,32 @@ export const generateInvoice = async (order) => {
         const brandColor = [13, 148, 136]; // Teal color
         const displayId = order.id || order.order_id || 'N/A';
 
+        // Helper to convert image URL to Data URI
+        const getDataUri = (url) => {
+            return new Promise((resolve, reject) => {
+                const image = new Image();
+                image.crossOrigin = "Anonymous"; // Handle CORS
+                image.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = image.width;
+                    canvas.height = image.height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(image, 0, 0);
+                    resolve(canvas.toDataURL('image/png'));
+                };
+                image.onerror = (error) => reject(error);
+                image.src = url;
+            });
+        };
+
         // Add Logo / Brand Name
         if (branding.logo_url) {
             try {
-                // Determine format
-                const format = branding.logo_url.toLowerCase().endsWith('.png') ? 'PNG' : 'JPEG';
-                doc.addImage(branding.logo_url, format, 20, 10, 40, 15);
+                // Convert to Base64 to ensure it renders in PDF
+                const logoData = await getDataUri(branding.logo_url);
+                doc.addImage(logoData, 'PNG', 20, 10, 40, 15);
             } catch (imgError) {
+                console.warn("Logo failed to load for invoice, using text fallback", imgError);
                 // Fallback to text if image fails
                 doc.setFontSize(22);
                 doc.setTextColor(...brandColor);
