@@ -5,14 +5,14 @@ import SEO from '../components/SEO';
 import { Helmet } from 'react-helmet-async';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
-import { 
-    Filter, Search, Star, Heart, ShoppingBag, X, 
-    CheckCircle2, ChevronDown, SlidersHorizontal 
+import {
+    Filter, Search, Star, Heart, ShoppingBag, X,
+    CheckCircle2, ChevronDown, SlidersHorizontal
 } from 'lucide-react';
 
 const Shop = () => {
     const location = useLocation();
-    
+
     // State
     const [priceRange, setPriceRange] = useState(100000);
     const [products, setProducts] = useState([]);
@@ -20,7 +20,7 @@ const Shop = () => {
     const [loading, setLoading] = useState(true);
     const [categorySEO, setCategorySEO] = useState(null);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-    
+
     // Filters State
     const [searchTerm, setSearchTerm] = useState(new URLSearchParams(location.search).get('search') || '');
     const [selectedCategory, setSelectedCategory] = useState(new URLSearchParams(location.search).get('category') || 'All');
@@ -44,7 +44,7 @@ const Shop = () => {
                 if (searchTerm) params.append('search', searchTerm);
                 if (priceRange < 100000) params.append('maxPrice', priceRange);
                 if (sortBy) params.append('sort', sortBy);
-                
+
                 const res = await api.get(`/products?${params.toString()}`);
                 setProducts(res.data);
             } catch (error) {
@@ -94,41 +94,41 @@ const Shop = () => {
             )}
 
             {/* --- HERO HEADER --- */}
-            <div className="bg-white border-b border-slate-100 pt-32 pb-12 lg:pt-40 lg:pb-16">
-                <div className="container mx-auto px-6">
-                    <div className="flex flex-col md:flex-row justify-between items-end gap-6">
-                        <div>
-                            <span className="text-brand-600 font-bold uppercase tracking-[0.2em] text-xs mb-3 block">Official Store</span>
-                            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-none">
-                                {selectedCategory !== 'All' ? selectedCategory : 'All Collections'}
-                            </h1>
-                        </div>
-                        <div className="flex items-center gap-4 text-sm font-medium text-slate-500">
-                            <span className="text-slate-900 font-bold">{products.length}</span> Products Found
-                        </div>
-                    </div>
+            <div className="bg-white border-b border-slate-100 p-0">
+
+                {/* --- PROMOTIONAL BANNER --- */}
+                <div className="w-full overflow-hidden">
+                    <img
+                        src="/product-banner/banner.webp"
+                        alt="Product Banner"
+                        className="w-full h-auto object-cover"
+                    />
                 </div>
+
+
             </div>
 
             <div className="container mx-auto px-6 py-12">
+
                 <div className="flex flex-col lg:flex-row gap-12 items-start">
-                    
+
+
                     {/* --- SIDEBAR FILTERS (Sticky) --- */}
                     <div className={`fixed inset-0 z-[100] lg:sticky lg:top-32 lg:z-0 lg:w-72 lg:h-auto bg-white lg:bg-transparent lg:inset-auto transition-all duration-300 lg:block ${isSidebarOpen ? 'opacity-100 visible' : 'opacity-0 invisible lg:opacity-100 lg:visible'}`}>
                         <div className="h-full overflow-y-auto lg:overflow-visible bg-white lg:bg-transparent p-8 lg:p-0">
-                            
+
                             {/* Mobile Header */}
                             <div className="flex lg:hidden justify-between items-center mb-8">
                                 <h3 className="text-xl font-bold">Filters</h3>
-                                <button onClick={() => setIsSidebarOpen(false)}><X size={24}/></button>
+                                <button onClick={() => setIsSidebarOpen(false)}><X size={24} /></button>
                             </div>
 
                             {/* Search */}
                             <div className="mb-10">
                                 <div className="relative group">
-                                    <input 
-                                        type="text" 
-                                        placeholder="Search products..." 
+                                    <input
+                                        type="text"
+                                        placeholder="Search products..."
                                         className="w-full bg-white border border-slate-200 px-5 py-3 rounded-xl text-sm font-medium focus:border-brand-500 focus:ring-1 focus:ring-brand-500 outline-none transition-all shadow-sm"
                                         value={searchTerm}
                                         onChange={(e) => setSearchTerm(e.target.value)}
@@ -140,17 +140,17 @@ const Shop = () => {
                             {/* Categories */}
                             <div className="mb-10">
                                 <h4 className="font-bold text-slate-900 mb-4 flex items-center justify-between">
-                                    Categories <ChevronDown size={14} className="text-slate-400"/>
+                                    Categories <ChevronDown size={14} className="text-slate-400" />
                                 </h4>
                                 <div className="space-y-2">
-                                    <button 
+                                    <button
                                         onClick={() => setSelectedCategory('All')}
                                         className={`w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${selectedCategory === 'All' ? 'bg-brand-50 text-brand-700 font-bold' : 'text-slate-500 hover:bg-slate-100 hover:text-slate-900'}`}
                                     >
                                         View All
                                     </button>
                                     {categories.map((cat) => (
-                                        <button 
+                                        <button
                                             key={cat.id}
                                             onClick={() => setSelectedCategory(cat.slug)}
                                             className={`w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${selectedCategory === cat.slug ? 'bg-brand-50 text-brand-700 font-bold' : 'text-slate-500 hover:bg-slate-100 hover:text-slate-900'}`}
@@ -164,7 +164,7 @@ const Shop = () => {
                             {/* Price Slider */}
                             <div className="mb-10">
                                 <h4 className="font-bold text-slate-900 mb-4">Price Range</h4>
-                                <input 
+                                <input
                                     type="range" min="0" max="100000" step="1000"
                                     value={priceRange} onChange={(e) => setPriceRange(e.target.value)}
                                     className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-brand-600 mb-3"
@@ -184,19 +184,23 @@ const Shop = () => {
 
                     {/* --- MAIN GRID --- */}
                     <div className="flex-1 w-full">
-                        
+
                         {/* Toolbar */}
                         <div className="flex justify-between items-center mb-8 pb-4 border-b border-slate-200 lg:hidden">
-                            <button 
+                            <button
                                 onClick={() => setIsSidebarOpen(true)}
                                 className="flex items-center gap-2 text-sm font-bold text-slate-700"
                             >
-                                <SlidersHorizontal size={18}/> Filters
+                                <SlidersHorizontal size={18} /> Filters
                             </button>
                         </div>
 
                         {/* Sorting (Desktop) */}
-                        <div className="hidden lg:flex justify-end mb-8">
+                        <div className="hidden lg:flex justify-end items-center mb-8 gap-6">
+                            <div className="text-sm font-medium text-slate-500">
+                                <span className="text-slate-900 font-bold">{products.length}</span> Products Found
+                            </div>
+
                             <div className="flex items-center gap-3">
                                 <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Sort By:</span>
                                 <select 
@@ -262,7 +266,7 @@ const ShopProductCard = ({ product }) => {
 
     return (
         <div className="group bg-white rounded-[2rem] border border-slate-100 overflow-hidden hover:shadow-xl hover:shadow-brand-900/5 transition-all duration-300 flex flex-col h-full">
-            
+
             {/* Image */}
             <div className="relative aspect-square p-8 bg-white flex items-center justify-center border-b border-slate-50">
                 {parseFloat(product.mrp) > parseFloat(product.price) && (
@@ -270,20 +274,19 @@ const ShopProductCard = ({ product }) => {
                         Sale
                     </span>
                 )}
-                
+
                 <Link to={`/product/${product.slug}`} className="w-full h-full flex items-center justify-center">
-                    <img 
-                        src={imageUrl} 
-                        alt={product.name} 
-                        className="w-full h-full object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-500" 
+                    <img
+                        src={imageUrl}
+                        alt={product.name}
+                        className="w-full h-full object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-500"
                     />
                 </Link>
 
-                <button 
+                <button
                     onClick={(e) => { e.preventDefault(); toggleWishlist(product); }}
-                    className={`absolute top-4 right-4 w-9 h-9 rounded-full flex items-center justify-center transition-all ${
-                        activeWishlist ? 'bg-red-50 text-red-500' : 'bg-slate-50 text-slate-400 hover:bg-brand-50 hover:text-brand-600'
-                    }`}
+                    className={`absolute top-4 right-4 w-9 h-9 rounded-full flex items-center justify-center transition-all ${activeWishlist ? 'bg-red-50 text-red-500' : 'bg-slate-50 text-slate-400 hover:bg-brand-50 hover:text-brand-600'
+                        }`}
                 >
                     <Heart size={16} className={activeWishlist ? 'fill-current' : ''} />
                 </button>
@@ -295,7 +298,7 @@ const ShopProductCard = ({ product }) => {
                 <Link to={`/product/${product.slug}`} className="block mb-4">
                     <h3 className="text-lg font-bold text-slate-900 leading-snug group-hover:text-brand-600 transition-colors line-clamp-2">{product.name}</h3>
                 </Link>
-                
+
                 <div className="mt-auto flex items-center justify-between">
                     <div>
                         <div className="flex items-baseline gap-2">
@@ -303,11 +306,10 @@ const ShopProductCard = ({ product }) => {
                             {parseFloat(product.mrp) > parseFloat(product.price) && <span className="text-xs text-slate-400 line-through">${product.mrp}</span>}
                         </div>
                     </div>
-                    <button 
+                    <button
                         onClick={handleAddToCart}
-                        className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all shadow-sm ${
-                            isAdded ? 'bg-green-500 text-white' : 'bg-slate-900 text-white hover:bg-brand-600'
-                        }`}
+                        className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all shadow-sm ${isAdded ? 'bg-green-500 text-white' : 'bg-slate-900 text-white hover:bg-brand-600'
+                            }`}
                     >
                         {isAdded ? <CheckCircle2 size={18} /> : <ShoppingBag size={18} />}
                     </button>
