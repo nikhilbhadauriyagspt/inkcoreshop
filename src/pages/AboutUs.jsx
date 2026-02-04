@@ -83,7 +83,7 @@ const AboutUs = () => {
       </section>
 
       {/* --- STATS STRIP --- */}
-      <section className="bg-slate-900 py-20 text-white">
+      {/* <section className="bg-slate-900 py-20 text-white">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
             <div className="p-4 border-r border-white/10 last:border-0">
@@ -104,7 +104,7 @@ const AboutUs = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* --- OUR VALUES --- */}
       <section className="py-24 border-b border-slate-100">
@@ -140,7 +140,7 @@ const AboutUs = () => {
       </section>
 
       {/* --- BRAND PARTNERS --- */}
-      <section className="py-24 bg-slate-50/50">
+      {/* <section className="py-24 bg-slate-50/50">
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-12">Trusted by Global Industry Leaders</h2>
           <div className="flex flex-wrap justify-center items-center gap-12 lg:gap-20 opacity-40 grayscale hover:grayscale-0 transition-all duration-700">
@@ -149,7 +149,7 @@ const AboutUs = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* --- CTA --- */}
       <section className="py-24 text-center container mx-auto px-6">

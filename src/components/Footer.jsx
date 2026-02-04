@@ -8,13 +8,7 @@ import {
 } from 'lucide-react';
 
 const Footer = () => {
-    const [branding, setBranding] = useState({
-        name: 'Inkcore',
-        contact_email: 'support@inkcore.com',
-        contact_address: '123 Innovation Way, Tech City',
-        phone: '+91 98765 43210'
-    });
-    const [email, setEmail] = useState('');
+    const [branding, setBranding] = useState(null);
 
     const [categories, setCategories] = useState([]);
 
@@ -35,16 +29,6 @@ const Footer = () => {
         fetchData();
     }, []);
 
-    const handleNewsletterSubmit = (e) => {
-        e.preventDefault();
-        if (!email) {
-            toast.error("Please enter your email address.");
-            return;
-        }
-        toast.success("Successfully Subscribed!");
-        setEmail('');
-    };
-
     return (
         <footer className="bg-[#080808] text-slate-400 pt-24 pb-12 relative overflow-hidden font-sans border-t border-white/5">
             {/* Ambient Background Glows */}
@@ -52,11 +36,13 @@ const Footer = () => {
             
             <div className="container mx-auto px-6 lg:px-12 relative z-10">
                 
-                {/* --- TOP SECTION: NEWSLETTER & BRAND --- */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-20">
+                {/* --- MAIN FOOTER CONTENT --- */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 py-16 border-b border-white/5">
+                    
+                    {/* Brand Section */}
                     <div className="lg:col-span-4">
                         <Link to="/" className="flex items-center gap-3 mb-8 group">
-                            {branding.logo_url ? (
+                            {branding?.logo_url ? (
                                 <div className="bg-white p-2 rounded-xl shadow-sm inline-block">
                                     <img 
                                         src={branding.logo_url} 
@@ -70,70 +56,48 @@ const Footer = () => {
                                         <Zap size={20} fill="currentColor" />
                                     </div>
                                     <span className="text-3xl font-black text-white tracking-tighter uppercase">
-                                        {branding.name}
+                                        {branding?.name || 'Inkcore'}
                                     </span>
                                 </>
                             )}
                         </Link>
-                        <p className="text-base text-slate-500 leading-relaxed max-w-sm mb-8">
+                        <p className="text-base text-slate-500 leading-relaxed max-w-sm">
                             Premium office technology and printing solutions engineered for the modern enterprise.
                         </p>
                     </div>
 
-                    <div className="lg:col-span-8 flex flex-col justify-center">
-                        <div className="bg-white/[0.03] border border-white/5 rounded-3xl p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-8 backdrop-blur-sm">
-                            <div className="max-w-xs text-center md:text-left">
-                                <h3 className="text-white font-bold text-xl mb-2">Weekly Tech Insights</h3>
-                                <p className="text-slate-500 text-sm">Join 10k+ professionals getting our best print optimization tips.</p>
+                    {/* Navigation Links */}
+                    <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-12">
+                        <FooterColumn title="Solutions" links={
+                            categories.length > 0 
+                            ? categories.map(cat => ({ label: cat.name, to: `/products?category=${cat.slug}` }))
+                            : [
+                                { label: 'Laser Series', to: '/products' },
+                                { label: 'Inkjet Pro', to: '/products' },
+                                { label: 'SuperTank', to: '/products' },
+                                { label: 'Business Hub', to: '/products' }
+                            ]
+                        } />
+                        <FooterColumn title="Information" links={[
+                            { label: 'Our Story', to: '/about' },
+                            { label: 'Tech Blog', to: '/blogs' },
+                            { label: 'Support FAQ', to: '/faq' },
+                            { label: 'Contact Us', to: '/contact' }
+                        ]} />
+                        <FooterColumn title="Legal & Policies" links={[
+                            { label: 'Privacy Policy', to: '/pages/privacy' },
+                            { label: 'Terms of Service', to: '/pages/terms' },
+                            { label: 'Shipping Policy', to: '/pages/shipping' },
+                            { label: 'Refund Policy', to: '/pages/refund' },
+                            { label: 'Cookie Policy', to: '/pages/cookies' }
+                        ]} />
+                        <div>
+                            <h4 className="text-white font-black text-[10px] uppercase tracking-[0.3em] mb-8">Reach Us</h4>
+                            <div className="space-y-5">
+                                <ContactRow icon={<Phone size={16} />} text={branding?.phone || '...'} />
+                                <ContactRow icon={<Mail size={16} />} text={branding?.contact_email || '...'} />
+                                <ContactRow icon={<MapPin size={16} />} text={branding?.contact_address || '...'} />
                             </div>
-                            <form onSubmit={handleNewsletterSubmit} className="flex w-full md:w-auto gap-2">
-                                <input 
-                                    type="email" 
-                                    placeholder="your@email.com" 
-                                    className="flex-1 md:w-64 bg-black/40 border border-white/10 rounded-xl px-5 py-3 text-sm text-white focus:outline-none focus:border-brand-500 transition-colors"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    required
-                                />
-                                <button type="submit" className="bg-brand-600 hover:bg-brand-500 text-white p-3 rounded-xl transition-all group">
-                                    <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                {/* --- MIDDLE SECTION: NAVIGATION --- */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-12 py-16 border-y border-white/5">
-                    <FooterColumn title="Solutions" links={
-                        categories.length > 0 
-                        ? categories.map(cat => ({ label: cat.name, to: `/products?category=${cat.slug}` }))
-                        : [
-                            { label: 'Laser Series', to: '/products' },
-                            { label: 'Inkjet Pro', to: '/products' },
-                            { label: 'SuperTank', to: '/products' },
-                            { label: 'Business Hub', to: '/products' }
-                        ]
-                    } />
-                    <FooterColumn title="Information" links={[
-                        { label: 'Our Story', to: '/about' },
-                        { label: 'Tech Blog', to: '/blogs' },
-                        { label: 'Support FAQ', to: '/faq' },
-                        { label: 'Contact Us', to: '/contact' }
-                    ]} />
-                    <FooterColumn title="Legal & Policies" links={[
-                        { label: 'Privacy Policy', to: '/pages/privacy' },
-                        { label: 'Terms of Service', to: '/pages/terms' },
-                        { label: 'Shipping Policy', to: '/pages/shipping' },
-                        { label: 'Refund Policy', to: '/pages/refund' },
-                        { label: 'Cookie Policy', to: '/pages/cookies' }
-                    ]} />
-                    <div>
-                        <h4 className="text-white font-black text-[10px] uppercase tracking-[0.3em] mb-8">Reach Us</h4>
-                        <div className="space-y-5">
-                            <ContactRow icon={<Phone size={16} />} text={branding.phone} />
-                            <ContactRow icon={<Mail size={16} />} text={branding.contact_email} />
-                            <ContactRow icon={<MapPin size={16} />} text={branding.contact_address} />
                         </div>
                     </div>
                 </div>
@@ -142,7 +106,7 @@ const Footer = () => {
                 <div className="pt-12 flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
                     <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
                         <p className="text-[11px] font-bold text-slate-600 uppercase tracking-widest">
-                            © 2026 {branding.name} • A subsidiary of PrimeFix Solutions LLC • All Rights Reserved
+                            © 2026 {branding?.name || 'Inkcore'} • A subsidiary of PrimeFix Solutions LLC • All Rights Reserved
                         </p>
                     </div>
 

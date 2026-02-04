@@ -97,13 +97,13 @@ const Shop = () => {
             <div className="bg-white border-b border-slate-100 p-0">
 
                 {/* --- PROMOTIONAL BANNER --- */}
-                <div className="w-full overflow-hidden">
+                {/* <div className="w-full overflow-hidden">
                     <img
                         src="/product-banner/banner.webp"
                         alt="Product Banner"
                         className="w-full h-auto object-cover"
                     />
-                </div>
+                </div> */}
 
 
             </div>

@@ -196,10 +196,10 @@ const Home = () => {
 
                 <div className="container mx-auto px-6 relative z-10">
                     <div className="text-center max-w-2xl mx-auto mb-20">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 rounded-full mb-6 backdrop-blur-sm">
+                        {/* <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 rounded-full mb-6 backdrop-blur-sm">
                             <span className="w-1.5 h-1.5 bg-brand-500 rounded-full animate-pulse"></span>
                             <span className="text-brand-300 font-mono text-[10px] uppercase tracking-widest">System Architecture</span>
-                        </div>
+                        </div> */}
                         <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">
                             Engineered for <span className="text-brand-500">Performance.</span>
                         </h2>

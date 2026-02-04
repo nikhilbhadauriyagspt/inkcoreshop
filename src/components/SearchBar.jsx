@@ -158,9 +158,13 @@ const SearchBar = ({ isOpen, onClose }) => {
                                 <div className="relative z-10">
                                     <span className="text-[10px] font-black tracking-[0.2em] uppercase opacity-80">Season Sale</span>
                                     <h4 className="text-2xl font-bold mt-2 mb-4">Get up to 40% OFF on All Printers</h4>
-                                    <button className="bg-white text-brand-600 px-6 py-2.5 rounded-xl font-bold text-sm hover:scale-105 transition-transform">
+                                    <Link 
+                                        to="/products" 
+                                        onClick={onClose}
+                                        className="inline-block bg-white text-brand-600 px-6 py-2.5 rounded-xl font-bold text-sm hover:scale-105 transition-transform"
+                                    >
                                         Shop Deals
-                                    </button>
+                                    </Link>
                                 </div>
                                 <div className="absolute -right-4 -bottom-4 w-32 h-32 bg-white/10 rounded-full blur-3xl"></div>
                             </div>
@@ -168,9 +172,13 @@ const SearchBar = ({ isOpen, onClose }) => {
                             <div className="bg-slate-900 rounded-3xl p-8 text-white">
                                 <h4 className="text-lg font-bold mb-4">Need help choosing?</h4>
                                 <p className="text-slate-400 text-sm mb-6 leading-relaxed">Our experts are available to guide you to the perfect printing solution.</p>
-                                <button className="w-full py-3 border border-slate-700 rounded-xl font-bold text-sm hover:bg-slate-800 transition-colors">
+                                <Link 
+                                    to="/contact" 
+                                    onClick={onClose}
+                                    className="inline-block w-full py-3 border border-slate-700 rounded-xl font-bold text-sm hover:bg-slate-800 transition-colors text-center"
+                                >
                                     Talk to Expert
-                                </button>
+                                </Link>
                             </div>
                         </div>
 

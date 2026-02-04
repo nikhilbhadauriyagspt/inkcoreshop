@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../api/api';
-import { Phone, Mail, HelpCircle, Truck, ChevronDown, MapPin, Sparkles } from 'lucide-react';
+import { Mail } from 'lucide-react';
 
 const TopBar = () => {
-      const [branding, setBranding] = useState({
-          contact_email: 'support@inkcore.com'
-      });
+  const [branding, setBranding] = useState(null);
   useEffect(() => {
     const websiteId = import.meta.env.VITE_WEBSITE_ID || 1;
     const fetchBranding = async () => {
@@ -28,28 +26,14 @@ const TopBar = () => {
           {/* Left: Contact Info */}
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-5">
-              <a href={`tel:${branding.phone}`} className="group flex items-center gap-2 text-[11px] font-bold tracking-widest uppercase hover:text-brand-600 transition-colors">
-                <span className="w-6 h-6 rounded-full bg-white border border-slate-100 flex items-center justify-center text-brand-500 group-hover:scale-110 group-hover:border-brand-200 transition-all shadow-sm">
-                    <Phone size={10} strokeWidth={2.5} />
-                </span>
-                <span>{branding.phone}</span>
-              </a>
-              <a href={`mailto:${branding.contact_email}`} className="group flex items-center gap-2 text-[11px] font-bold tracking-widest uppercase hover:text-brand-600 transition-colors">
-                 <span className="w-6 h-6 rounded-full bg-white border border-slate-100 flex items-center justify-center text-brand-500 group-hover:scale-110 group-hover:border-brand-200 transition-all shadow-sm">
-                    <Mail size={10} strokeWidth={2.5} />
-                </span>
-                <span>Email Us</span>
-              </a>
-            </div>
-          </div>
-
-          {/* Center: Ticker/Message */}
-          <div className="hidden lg:flex flex-1 justify-center">
-            <div className="flex items-center gap-2 px-4 py-1 rounded-full bg-brand-50/50 border border-brand-100/50">
-              <Sparkles size={12} className="text-brand-500 animate-pulse" />
-              <p className="text-[10px] font-bold tracking-wider uppercase text-brand-700">
-                Flash Sale: <span className="font-black">20% OFF</span> Laser Printers • Ends in 12 Hours
-              </p>
+              {branding?.contact_email && (
+                <a href={`mailto:${branding.contact_email}`} className="group flex items-center gap-2 text-[11px] font-bold tracking-widest uppercase hover:text-brand-600 transition-colors">
+                  <span className="w-6 h-6 rounded-full bg-white border border-slate-100 flex items-center justify-center text-brand-500 group-hover:scale-110 group-hover:border-brand-200 transition-all shadow-sm">
+                      <Mail size={10} strokeWidth={2.5} />
+                  </span>
+                  <span>Email Us</span>
+                </a>
+              )}
             </div>
           </div>
 

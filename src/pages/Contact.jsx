@@ -4,11 +4,7 @@ import SEO from '../components/SEO';
 import { Mail, Phone, MapPin, Send, CheckCircle2 } from 'lucide-react';
 
 const Contact = () => {
-  const [branding, setBranding] = useState({
-    contact_email: 'support@mystore.com',
-    contact_address: '123 Tech Park, CA',
-    phone: '+91 98765 43210'
-  });
+  const [branding, setBranding] = useState(null);
 
   useEffect(() => {
     const websiteId = import.meta.env.VITE_WEBSITE_ID || 1;
@@ -67,17 +63,17 @@ const Contact = () => {
             <div className="bg-white p-8 rounded-3xl border border-gray-100 flex flex-col items-center text-center shadow-sm">
                 <div className="w-12 h-12 bg-teal-50 rounded-full flex items-center justify-center text-teal-600 mb-4"><Mail size={24} /></div>
                 <h3 className="font-bold text-gray-900 mb-1 text-xs uppercase tracking-widest">Email Us</h3>
-                <p className="text-sm text-gray-500 font-medium">{branding.contact_email}</p>
+                <p className="text-sm text-gray-500 font-medium">{branding?.contact_email || '...'}</p>
             </div>
             <div className="bg-white p-8 rounded-3xl border border-gray-100 flex flex-col items-center text-center shadow-sm">
                 <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center text-blue-600 mb-4"><Phone size={24} /></div>
                 <h3 className="font-bold text-gray-900 mb-1 text-xs uppercase tracking-widest">Call Us</h3>
-                <p className="text-sm text-gray-500 font-medium">{branding.phone}</p>
+                <p className="text-sm text-gray-500 font-medium">{branding?.phone || '...'}</p>
             </div>
             <div className="bg-white p-8 rounded-3xl border border-gray-100 flex flex-col items-center text-center shadow-sm">
                 <div className="w-12 h-12 bg-purple-50 rounded-full flex items-center justify-center text-purple-600 mb-4"><MapPin size={24} /></div>
                 <h3 className="font-bold text-gray-900 mb-1 text-xs uppercase tracking-widest">Visit Us</h3>
-                <p className="text-sm text-gray-500 font-medium">{branding.contact_address}</p>
+                <p className="text-sm text-gray-500 font-medium">{branding?.contact_address || '...'}</p>
             </div>
           </div>
 

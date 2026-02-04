@@ -50,13 +50,10 @@ import NotFound from './pages/NotFound';
 import './App.css';
 
 const PublicLayout = () => {
-  const location = useLocation();
-  const isProductsPage = location.pathname === '/products';
-
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col pb-16 md:pb-0">
-      {!isProductsPage && <TopBar />}
-      {!isProductsPage && <Navbar />}
+      <TopBar />
+      <Navbar />
       <div className="flex-grow">
         <Routes>
           <Route path="/" element={<Home />} />
