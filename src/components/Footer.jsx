@@ -86,9 +86,9 @@ const Footer = () => {
                         ]} />
                         <FooterColumn title="Legal & Policies" links={[
                             { label: 'Privacy Policy', to: '/pages/privacy' },
-                            { label: 'Terms of Service', to: '/pages/terms' },
+                            { label: 'Terms and Conditions', to: '/pages/terms' },
                             { label: 'Shipping Policy', to: '/pages/shipping' },
-                            { label: 'Refund Policy', to: '/pages/refund' },
+                            { label: 'Return Policy', to: '/pages/refund' },
                             { label: 'Cookie Policy', to: '/pages/cookies' }
                         ]} />
                         <div>
