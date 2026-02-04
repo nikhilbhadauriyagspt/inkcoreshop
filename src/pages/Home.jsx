@@ -22,7 +22,7 @@ const Home = () => {
     const { addToCart } = useCart();
     const scrollRef = useRef(null);
     const [email, setEmail] = useState('');
-    
+
     // Loading states
     const [isProductsLoading, setIsProductsLoading] = useState(true);
     const [isInitialLoading, setIsInitialLoading] = useState(true);
@@ -281,8 +281,8 @@ const Home = () => {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
                         {isProductsLoading ? (
-                             // Skeletons for Curated Selection
-                             Array(8).fill(0).map((_, i) => (
+                            // Skeletons for Curated Selection
+                            Array(8).fill(0).map((_, i) => (
                                 <div key={i} className="flex flex-col gap-4">
                                     <Skeleton className="w-full aspect-square rounded-[2rem]" />
                                     <div className="p-2 space-y-3">
@@ -392,14 +392,14 @@ const Home = () => {
 
                     <div id="fresh-drops" className="flex gap-6 overflow-x-auto pb-10 scrollbar-hide snap-x px-4 -mx-4">
                         {isProductsLoading ? (
-                             // Skeletons for Fresh Drops
-                             Array(5).fill(0).map((_, i) => (
+                            // Skeletons for Fresh Drops
+                            Array(5).fill(0).map((_, i) => (
                                 <div key={i} className="min-w-[280px] md:min-w-[320px] snap-start flex flex-col gap-4">
-                                     <Skeleton className="w-full aspect-square rounded-[2rem]" />
-                                     <Skeleton className="w-3/4 h-6 rounded-md" />
-                                     <Skeleton className="w-1/2 h-6 rounded-md" />
+                                    <Skeleton className="w-full aspect-square rounded-[2rem]" />
+                                    <Skeleton className="w-3/4 h-6 rounded-md" />
+                                    <Skeleton className="w-1/2 h-6 rounded-md" />
                                 </div>
-                             ))
+                            ))
                         ) : (
                             products.slice(0, 6).map((product) => (
                                 <div key={product.id} className="min-w-[280px] md:min-w-[320px] snap-start">
@@ -491,7 +491,6 @@ const Home = () => {
                 <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
                 <div className="container mx-auto px-6 relative z-10 text-center">
                     <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-8">Ready to Upgrade Your Workflow?</h2>
-                    <p className="text-brand-100 text-md mb-10 max-w-2xl mx-auto">Join 5000+ businesses optimizing their print infrastructure today.</p>
                     <div className="flex justify-center gap-4">
                         <Link to="/contact" className="px-8 py-4 bg-white text-brand-900 rounded-xl font-bold text-sm uppercase tracking-widest hover:bg-brand-50 transition-all shadow-xl">
                             Request Consultation
@@ -636,8 +635,8 @@ const ProductCard = ({ product }) => {
                     <button
                         onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleWishlist(product); }}
                         className={`w-10 h-10 rounded-full flex items-center justify-center transition-all shadow-sm border ${activeWishlist
-                                ? 'bg-red-500 border-red-500 text-white'
-                                : 'bg-white border-slate-100 text-slate-400 hover:text-red-500 hover:border-red-200'
+                            ? 'bg-red-500 border-red-500 text-white'
+                            : 'bg-white border-slate-100 text-slate-400 hover:text-red-500 hover:border-red-200'
                             }`}
                     >
                         <Heart size={16} className={activeWishlist ? 'fill-current' : ''} />
@@ -672,8 +671,8 @@ const ProductCard = ({ product }) => {
                         onClick={handleAddToCart}
                         disabled={isAdded}
                         className={`h-12 px-6 rounded-xl font-bold text-xs uppercase tracking-widest transition-all duration-300 flex items-center gap-2 shadow-lg shadow-brand-500/10 ${isAdded
-                                ? 'bg-green-500 text-white w-auto px-8'
-                                : 'bg-slate-900 text-white hover:bg-brand-600 hover:scale-105 active:scale-95'
+                            ? 'bg-green-500 text-white w-auto px-8'
+                            : 'bg-slate-900 text-white hover:bg-brand-600 hover:scale-105 active:scale-95'
                             }`}
                     >
                         {isAdded ? (
